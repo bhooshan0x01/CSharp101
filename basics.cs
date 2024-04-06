@@ -419,3 +419,24 @@ foreach(string line in lines)
     Console.WriteLine(line);
 }
 
+//writing a string to a file
+File.WriteAlltext("path_to_file.txt", "Hello, Worlds!");
+
+//writing an array of strings to a file
+string[] contents = {"Hello", "World", "from", "C#"};
+File.WriteAllLines("path_to_file.txt", contents);
+
+//File I/O Exceptions
+try
+{
+    string content = File.ReadAllText("non_existent_file.txt");
+    Console.WriteLine(content);
+}
+catch (FileNotFoundException ex)
+{
+    Console.WriteLine("File not found: " + ex.Message);
+}
+catch (IOException ex)
+{
+    Console.WriteLine("An I/O error occurred: " + ex.Message);
+}
