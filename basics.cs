@@ -213,3 +213,47 @@ public class Sparrow : Bird
 
 //here Sparrow inherits from Bird and can both Sing(inherited)
 //and fly (unique to Sparrow).
+
+
+//-------------- Interfaces and Polymorphism
+//interface is a blueprint of a class.
+// it's like a class but has no implementation.
+// the only thing it contains are declarations of events, indexeres, methods 
+// and properties.
+//any class or struct that implements the interface must also implement
+// the members of the interface.
+
+public interface IFlyable
+{
+    void Fly();
+}
+
+//implementing interfaces: 
+//once an interface is defined, any classes or struct can implement it.
+//once they do, they have to provide an implementation for all the members of the interface.
+
+public class Bird : IFlyable
+{
+    public void Fly()
+    {
+        Console.WriteLine("The bird can fly.");
+    }
+}
+
+public class Airplane : IFlyable
+{
+    public void Fly()
+    {
+        Console.WriteLine("The airplane can fly.");
+    }
+}
+
+//Polymorphism is a concept where an object can take many forms.
+//the most common use of polymorphism is when a parent class references is used to refer to a child class object
+
+IFlyable flyingObject1 = new Bird();
+IFlyable flyingObject2 = new Airplane();
+
+flyingObject1.Fly(); // outputs: The bird can fly.
+flyingObject2.Fly(); // outputs: The airplane can fly.
+
