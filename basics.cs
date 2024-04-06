@@ -510,3 +510,66 @@ Console.WriteLine(add(3,5)); //outputs: 8
 // they leverage delegates.
 // Lambdas: they're a concise way to represent anonymous methods and can make
 // your code cleaner and more readable.
+
+
+//-------Attributes and Reflections
+// Attributes and Reflections are advances concepts in C# that allow you to add metadata 
+//to your code and inspect it at runtime, respectively.
+
+//1. Attributes
+// attributes are a way to add metadata, such as compiler instructions and 
+// other information, to your code. This metadata can then be retrieved at runtime 
+// using reflection.
+
+//Built in Attribute - predefined attributes
+
+[Obsolete("This method is obsolete. Use NewMethod instead.")]
+public void OldMethod()
+{
+    // some code
+}
+
+// creating custom attribute
+[AttrubuteUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class CustomAttribute : Attribute
+{
+    public string Description { get; set; }
+    public CustomAttribute(string description)
+    {
+        Description = description;
+    }
+}
+
+[Custom("This is a custom attribute example.")]
+public class MyClass
+{
+    // some code
+}
+
+// 2. Reflection
+//Reflection allows a program to inspect its own structure, such as its 
+//assemblies, modules, and types, and to invoke methods at runtime.
+
+// Using Reflection to inspect MetaDats
+
+using System.Reflection;
+
+var assembly = Assembly.GetExecutingAssembly();
+Type myType = assembly.GetType("NameSpace.MyClass");
+
+//Get the custom attribute of MyClass
+object[] attributes = myType.GetCustomAttributes(true);
+foreach(var attr in attributes)
+{
+    CustomAttribute customAttr = attr as CustomAttribute;
+    if(customAttr != null)
+    {
+        Console.WriteLine(customeAttr.Description);
+    }
+}
+
+//Key Takeaways
+// Attributes: Allow you to add metadata to assemblies, modules, types, members etc.
+// you can define custom attribute and utilize built-iin ones.
+// Reflection: A powerful feature that lets you inspect the metadata of assemblies,
+// types, etc. and allows dynamic type creation and method invocation.
