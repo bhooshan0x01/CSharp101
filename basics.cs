@@ -103,6 +103,8 @@ List<string> fruits = new List<string> {"apple", "banana", "kiwi", "cherry"};
 fruits.Add("dragonfruit");
 
 //---------------- Switch statements
+//its a way to make multiple comparisions in a more structured manner 
+//than a bunch of else ifs
 enum Day {Monday, Tuesday, Wednesday, Thursday, Friday}
 
 Day today = Day.Friday;
@@ -119,3 +121,95 @@ switch(today)
         Console.WriteLine("It's some other day.");
         break;
 }
+
+//-------- Function with overloading & passing by reference 
+
+//public keyword denotes the access level of the method.
+//static means you dont need to instantiate the class to use
+//this method. void/string/int before function name denotes the return type
+// of the method. Inside the paranthesis, you define the parameters.
+
+//Show with same method name but different parameters is an example of
+//method overloading 
+
+public static void Show(int a)
+{
+    Console.WriteLine($"Integer: {a}");
+}
+
+public static void Show(string a)
+{
+    Console.WriteLine($"String: {a}");
+}
+
+// Different methods can have the same name but different parameters
+
+public static void Main(string[] args)
+{
+    Show(2);
+    Show("Monday");
+}
+
+//-------- Passing parameters by reference 
+
+//by default, parameters are passed by value in c#.
+//however, you can pass them by reference using the ref keyword,
+//meaning changes to the parameter within the method will affect
+//its value outside the method.
+
+public static void AddTen(ref int number)
+{
+    number += 10;
+}
+
+public static void Main(string[] args)
+{
+    int value = 20;
+    AddTen(ref value);
+    Console.WriteLine(value); //outputs 30
+}
+//-------- Classes, Objects and Inheritance
+
+//classes allow you to group properties and methods
+
+public class Bird
+{
+    public string Name { get; set; }
+    //{ get; set; } is an auto-implemented property,
+    //a shorthand for defining a property in C#
+
+    public Bird(string name)
+    {
+        this.Name = name;
+    }
+
+    public string Sing()
+    {
+        return $"{Name} sings!";
+    }
+}
+
+//Here, we've defined a class named Bird with a property Name and 
+//a method Sing. public denotes that the class, property, and method 
+//can be accessed from outside the class.
+
+public static void Main(string[] args)
+{
+    Bird myBird = new Bird("Queeny");
+    Console.writeLine(myBird.Sing());
+}
+
+//Inheritance
+
+public class Sparrow : Bird
+{
+    public Sparrow(string name) : base(name) {}
+
+    public string Fly()
+    {
+        reutrn $"{Name} flies high!";
+    }
+}
+
+//here Sparrow inherits from Bird and can both Sing(inherited)
+//and fly (unique to Sparrow).
