@@ -635,3 +635,63 @@ catch (Exception ex)
 // It's essential for improving app responsiveness, especially in UI contexts and for making 
 // efficient use of resources in server applications.
 //Always be aware of potential pitfalls such as deadlocks and handle exception gracefully.
+
+//--------- Entity Framework
+//EF is an Object Relational Mapping (ORM) tool for .NET it enables developers 
+// to work with data as strongly typed objects, eliminating the need for most data-access
+// code that developers usually need to write.
+
+// What is an Entity Framework
+//ORM is a technique that lets you interact with your database using object
+//oriented syntax. EF abstracts the DB layer, allowing you to work with 
+// .NET objects and ot takes care of turning those operations into SQL queries.
+// DB providers: EF works with different DBs and for each type of database, there's 
+//a provider. The most common one is for SQL server but there are providers for other
+// DBs as well.
+
+//Code first VS DB-first approaches
+// 1. Code first: starts by writing .net classes. These classes will be turned into DB tables.
+// any changes in the models can be migrated to update the DB schema.
+//2. Database-first: starts with an existing DB. EF will create .NET classes based on the DB schema.
+
+//Basic CRUD operations (Create, Read, Update, Delete).
+// with EF can perform CRUD operations using LINQ and .NET objects.
+
+using(var context = new MyDbContext())
+{
+    //CREATE
+    var user = new User { Name = "Alice" };
+    context.Users.Add(user);
+    context.SaveChanges();
+
+    //READ
+    var queriedUser = context.Users.FirstOrDefault(u => u.Name == "Alice");
+
+    //UPDATE
+    queriedUser.Name = "Bob";
+    content.SaveChanges();
+
+    //DELETE
+    context.Users.Remove(queriedUser);
+    context.SaveChanges();
+}
+
+// Migrations
+// when using the Code-first approach your model classes and the DB schema need to
+// be in sync. When you change your models, you'll use migrations to apply those changes to 
+// your database.
+
+// BASH code :
+Add-Migration NameOfYourMigration
+Update-Database
+
+// these commands Typically run in the package manager console  within Visual Studio
+
+//Key Takeaways
+//EF is a powerful ORM tool for .NET that abstracts DB operations,
+// allowing developers to focus on their applications logic without worrying too much
+// about DB details
+//EF supports both Code-first & DB-first approaches 
+// CRUD operations in EF are straightforward and you can interact with the DB using 
+// strongly typed .NET objects.
+//migration helps you keep your DB schema in sync with your .NET model classes.
