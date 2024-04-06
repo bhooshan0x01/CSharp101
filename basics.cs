@@ -695,3 +695,79 @@ Update-Database
 // CRUD operations in EF are straightforward and you can interact with the DB using 
 // strongly typed .NET objects.
 //migration helps you keep your DB schema in sync with your .NET model classes.
+
+
+//-------- Basics of Dependency Injection (DI)
+//DI is a software design pattern that deals with how components
+//acquire their dependencies.
+//In simpler terms instead of having your objects creating a dependency or asking
+// a factory object to make one for them you pass the needed dependencies into the 
+//object externally. This can greatly improve code maintainability and testing
+
+//What is DI:
+//Inversion of Control (IoC): DI is a form of IoC. Instead of components like a class 
+// or service being responsible for creating its dependencies.
+// it is given (or injected with) its dependencies from outside.
+
+//Benefits:
+    //Separation of Concerns: Components focus on their core responsibility and are not 
+    //concerned with creating dependencies
+    //testability: mocking dependencies becomes easier which is beneficial for unit testing.
+    //reusability & maintainability: components become more reusable and maintainable due
+    //to reduced tight coupling.
+
+//Types of DI
+
+// 1. Constructor Injection: Dependencies are injected through the constructor
+
+public class OrderService
+{
+    private readonly IDatabase _database;
+    public OrderService(IDatabase database)
+    {
+        _database = database;
+    }
+}
+
+// 2. Method injection: Dependencies are injected through methods
+
+public class OrderService
+{
+    public void ProcessOrder(IDatabase database, Order order)
+    {
+        //process the order
+    }
+}
+
+// 3. Property injection: dependencies are injected through properties.
+
+public class OrderService
+{
+    public IDatabase Database { get; set; }
+}
+
+// Dependency Injection Containers:
+//A DI container, also known as an IoC container, is a framework for implementing
+//automatic dependency injection. It manages object creation and injects dependencies when needed.
+
+//popular DI containers in C# includes
+
+//a. Microsoft.Extensions.DependencyInjection
+//b. Autofac
+//c. Ninject
+//d. Unity
+
+//Example using Microsoft's DI container
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddScoped<IDatabase, SqlDatabase>();
+    services.AddTransient<IOrderService, orderService>();
+}
+
+//Key Takeaways
+//Dependenct Injection is a design pattern that promotes the inversion of control principle.
+//instead of components creating or finding their dependencies they are provided with them
+//There are different type of DI including costructor injection, method injection &
+// property injection.
+//DI containers simplify the process of constructing and providing dependencies to objects.
