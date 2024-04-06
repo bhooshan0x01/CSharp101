@@ -313,3 +313,109 @@ if(string.IsNullOrEmpty(name))
     throw new ArgumentNullException("Name cannot be nnull or empty.");
 }
 
+
+//---------------- Collections 
+//Collections are group of objects 
+// the System.Collections and System.Collections.Generic namespaces contain
+//interfaces and classes that define various collections of objects
+//such as lists, queues, bit arrays, hash tables and dictionaries.
+
+//---Array 
+//arrays are fixed sized collections and cant be changes
+int[] numbers = new int[5];
+numbers[0] = 10;
+numbers[1] = 20;
+
+//---Lists
+//List<T> is a dynamic array, meaning it can grow in size as needed.
+//it's part of System.Collections.Generic namespace
+List<int> numberList = new List<int>();
+numberList.Add(1);
+numberList.Add(2);
+numberList.Add(3);
+
+//---Dictionaries
+//Dictionary<TKey, TValue> is a collection of key-value pairs. It's also part of the 
+//System.Collections.Generic namespace
+
+Dictionary<string, int> ageDictionary = new Dictionary<string, int>();
+ageDictionary["Alice"] = 25;
+ageDictionary["Bob"] = 30;
+
+//Queues 
+//Queue<T> represents a first in first out (FIFO) collection
+
+Queue<string> nameQueue = new Queue<string>();
+nameQueue.Enqueue("Alice");
+nameQueue.Enqueue("Bob");
+string firstInLine = nameQueue.Dequeue(); //Alice
+
+//Stack
+//Stack<T> represents a last in first out (LIFO) collection.
+
+Stack<string> nameStack = new Stack<string>();
+nameStack.Push("Alice");
+nameStack.Push("Bob");
+string lastAdded = nameStack.Pop(); //Bob
+
+//--------- LINQ (Language integrated query)
+// querying collections - consider u have a list of integers and want to fetch numbers greater than 5
+
+List<int> numbers = new List<int> {1,2,3,4,5,6,7,8,9};
+var query = from num in numbers 
+            where num > 5
+            select num;
+foreach(var num in query)
+{
+    Console.WriteLine(num);
+}
+
+//method based queries VS query expressions 
+//above example used a query expression. LINQ also provides method-based queries.
+//which can sometimes be more concise.
+
+var methodQuery = numbers.Where(n => n > 5);
+foreach(var num in methodQuery)
+{
+    Console.WriteLine(num);
+} 
+
+//example linq with strings
+string[] names = {"Alice", "Bob", "Charlie", "David"};
+var shortNames = from name in names
+                where name.Length <= 4
+                select name;
+
+foreach(var name in shortNames)
+{
+    Console.WriteLine(name); //outputs Bob
+}
+
+// Key Takeaways:
+//Consistency: with LINQ you have a consistent way of querying different data sources.
+//Intellisense and Compile-Time Checking: as LINQ is integrated into C# you benefit from 
+//compile time checking and Intellisense in Visual Studio
+//Exrensibility: LINQ is extensible so you can create custom providers to work with your own data source.
+
+
+//------ File Handling 
+//System.IO namespace
+//Reading from files:
+//you can use the 'File' class to read text from a file.
+//the File.ReadAllText method reads the entire file as a single string.
+//while File.ReadAllLines reads the file line by line into a string array.
+
+using System;
+using System.IO;
+
+//reading the entire file as a single string
+string content = File.ReadAllText("path_to_file.txt");
+Console.WriteLine(content);
+
+//Reading the file line by line
+string[] lines = File.ReadAllLines("path_to_file.txt"); 
+foreach(string line in lines)
+{
+    Console.WriteLine(line);
+}
+
