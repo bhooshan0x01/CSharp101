@@ -573,3 +573,65 @@ foreach(var attr in attributes)
 // you can define custom attribute and utilize built-iin ones.
 // Reflection: A powerful feature that lets you inspect the metadata of assemblies,
 // types, etc. and allows dynamic type creation and method invocation.
+
+
+//------ Asynchronous programming with Async/Await
+
+//async: indicates that a method, lambda expression or anonymous method is asynchronous.
+//await: pauses the execution of the method untill the awaited task completes.
+// the method then resumes where it left off.
+
+public async Task<string> FetchDataAsync()
+{
+    //Simulating an async operation
+    await Task.Delay(2000);
+    return "Data fetched";
+}
+
+public async Task UseDataAsync()
+{
+    string data = await FetchDataAsync();
+    Console.WriteLine(data);
+}
+
+// Task-based asynchronous programming 
+// 'Task': represents an asynchronous operation, Similar to 'Future' in some other languages
+// Task<T> : represents an asynchoronous operation that returns a value of type T.
+
+    //Using Tasks without 'await' (fire and forget)
+
+public Task LongRunningTask()
+{
+    return Task.Run( () => 
+    {
+        //Simulate long running task
+        Thread.Sleep(5000);
+        Console.WriteLine("Task completed");
+    });
+}
+
+//Important notes:
+//1. Not magic: asynchronous code doesn't mean "run in parallel" or "run faster".
+// it means "run without blocking" the actual work(like data fetch) still takes the same time.
+//2. ConfigureAwait: Especially important in UI applications. Using 'await'
+// 'task.ConfigureAwait(false)' can prevent deadlocks and make your code more efficient
+// by not trying to marshal the continuation back to the original context(ex. UI thread).
+//3. Exception handling: asynchronous methods can still raise exceptions. Typically,
+// exceptions are caught when you 'await' the method or when you access the 'Result'
+// property of a Task.
+
+try
+{
+    string data = await FetDataAsync();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"An error occurred: {ex.Message}");
+}
+
+//Key Takeaways
+//Asynchronous programming with 'async' and 'await' makes it easier to write 
+// and read code that performs tasks asynchronously.
+// It's essential for improving app responsiveness, especially in UI contexts and for making 
+// efficient use of resources in server applications.
+//Always be aware of potential pitfalls such as deadlocks and handle exception gracefully.
