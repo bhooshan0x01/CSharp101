@@ -440,3 +440,73 @@ catch (IOException ex)
 {
     Console.WriteLine("An I/O error occurred: " + ex.Message);
 }
+
+//-------Delegates, Events & Lambdas
+//this is an extensive topic that covers the fundamental concepts of how 
+//C# handles events and provides flexibility with methods.
+
+//1. Delegates
+//A delegate is a type-safe function pointer, which means it points to function 
+//that has a specific signature. It  can be used to pass methods as arguments 
+//to define callback methods.
+
+//Delegate declaration;
+
+public delegate void MyDelegate(string message);
+
+//example method
+public static void ShowMessage(string message)
+{
+    Console.WriteLine(message);
+}
+
+public static void Main()
+{
+    MyDelegate del = new  MyDelegate(ShowMessage);
+    del("Hello, World!"); // this will call ShowMessage method
+}
+
+//2. Events
+// Events in C# provides a way for a class to notify other classes or objects
+//when something of interest occurs. The class that sends (or raises) the event 
+// is called the publisher. The class that receives the event is called the subscriber.
+
+public class EventExample
+{
+    public delegate void MyEventHandler(string message);
+    public event MyEventHandler MyEvent;
+
+    public void RaiseEvent()
+    {
+        MyEvent("Event raised");
+    }
+}
+
+public static void Main()
+{
+    EventExample obj = new EventExample();
+    obj.MyEvent += ShowMessage; // Subscribing to an event
+    obj.RaiseEvent();
+}
+
+public static void ShowMessage(string message)
+{
+    Console.WriteLine(message);
+}
+
+//3. Lambdas
+//lambda expressions are a concise way to write anonymous methods 
+//(methods without a name). They are particulary handly for LINQ
+// and short delegate methods.
+
+//lambda expression 
+Func<int, int, int> add = (a,b) => a + b;
+Console.WriteLine(add(3,5)); //outputs: 8
+
+//key takeaway
+// Delegates: they allow methods to be passed as parameters.
+// They're type-safe function pointers.
+// Events: provide a mechanism to notify others objects about actions or changes.
+// they leverage delegates.
+// Lambdas: they're a concise way to represent anonymous methods and can make
+// your code cleaner and more readable.
