@@ -257,3 +257,59 @@ IFlyable flyingObject2 = new Airplane();
 flyingObject1.Fly(); // outputs: The bird can fly.
 flyingObject2.Fly(); // outputs: The airplane can fly.
 
+//------------------ TRY & CATCH Block
+
+try
+{
+    int[] arr = new int[5];
+    arr[10] = 100; // this will throw an exception as the index is out of bounds.
+}
+catch (System.Exception ex) // this brings in real error
+{
+    
+    Console.WriteLine(ex.Message); //outputs the index was outside the bounds.
+}
+
+//you can have multiple catch block too
+
+try
+{
+    //some code that errors out
+}
+catch(IndexOutOfRangeExceptions ex)
+{
+    // handle index out of range exceptions
+}
+catch(ArgumentNullException ex)
+{
+    // handle null arguments
+}
+catch(Exception ex)
+{
+    // General catch block for all other exceptions
+}
+
+//Finally block
+//it can be added after the catch blocks.
+//the code inside the 'finally' block always executes regardess of whether
+//an exception was thrown or not.
+
+try
+{
+    //some code that may throw exceptions
+}
+catch(Exception ex)
+{
+    // Handle exception
+}
+finally
+{
+    //this code always runs
+}
+
+// you can manually throw exceptions with throw
+if(string.IsNullOrEmpty(name))
+{
+    throw new ArgumentNullException("Name cannot be nnull or empty.");
+}
+
